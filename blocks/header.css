@@ -14,8 +14,8 @@
 }
 
 .header__icon {
-  width: 5vw;
-  height: 5vw;
+  width: 4.5vw;
+  height: 4.5vw;
 }
 
 @media screen and (max-width: 720px) {
