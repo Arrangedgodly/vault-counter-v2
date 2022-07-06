@@ -1,0 +1,47 @@
+.count {
+  font-family: 'Oxygen', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #74C69D;
+  margin: 5px 0 5px 0;
+  border-style: none;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0,0,0,0);
+}
+
+.count_alt {
+  color: #081C15;
+}
+
+.count_bills {
+  color: #A9D6E5;
+}
+
+.count_alt_bills {
+  color: #012A4A;
+}
+
+.count_red {
+  color: #FF758F;
+}
+
+.count_alt_red {
+  color: #590D22;
+}
+
+@media screen and (max-width: 720px) {
+  .count {
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .count {
+    font-size: 4vw;
+  }
+}

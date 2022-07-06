@@ -1,0 +1,66 @@
+.button {
+  width: 4.5vw;
+  height: 4.5vw;
+  margin: 5px auto 5px auto;
+}
+
+.button__label {
+  text-align: center;
+  font-size: 2vw;
+  color: #74C69D;
+  margin: 5px 0 5px 0;
+}
+
+.button__label_bills {
+  color: #A9D6E5;
+}
+
+.button__label_red {
+  color: #FF758F;
+}
+
+.button__label_alt {
+  color: #081C15;
+  font-weight: 700;
+  font-style: bold;
+}
+
+.button__label_alt_bills {
+  color: #012A4A;
+}
+
+.button__label_alt_red {
+  color: #590D22;
+}
+
+@media screen and (max-width: 720px) {
+  .button {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  .button__label {
+    font-size: 4vw;
+  }
+
+  .button__label_alt {
+    font-size: 4vw;
+    margin: 0 0 10px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .button {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  .button__label {
+    font-size: 3.5vw;
+  }
+
+  .button__label_alt {
+    font-size: 3.5vw;
+    margin: 0 0 10px 0;
+  }
+}
