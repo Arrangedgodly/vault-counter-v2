@@ -15,7 +15,7 @@ This project was designed as an aid for my coworkers to be able to count the mon
   
 ### **Overview**
   
-Vault Counter features 3 different sections, color coded for viewing convience. Each individual card features buttons that trigger JavaScript
+Vault Counter features 3 different sections, color coded for viewing convience. Each individual card number inputs that trigger JavaScript
 functionality to live update the server with the rolling total of individual denominations and the cumulative total of all cash on hand. This
 makes the data extremely easy to transfer into the required company spreadsheet data, without requiring on the fly math.
 
@@ -32,7 +32,7 @@ makes the data extremely easy to transfer into the required company spreadsheet 
 
 ### **Link**
 
-You can find the live version of this Vault Counter version [here](https://arrangedgodly.com/button-building/).
+You can find the live version of this Vault Counter version [here](https://new-vault.graydonwasil.com/).
 
 ### **Future Plans**
 
