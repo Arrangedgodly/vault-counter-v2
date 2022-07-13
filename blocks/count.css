@@ -7,10 +7,10 @@
   font-size: 2.25vw;
   font-weight: 700;
   color: #74C69D;
-  margin: 5px 0 5px 0;
+  margin: 5px auto 5px auto;
   border-style: none;
-  width: 150px;
-  height: 100px;
+  max-width: 150px;
+  max-height: 100px;
   background-color: rgba(0,0,0,0);
 }
 
@@ -37,6 +37,8 @@
 @media screen and (max-width: 720px) {
   .count {
     font-size: 4.5vw;
+    max-width: 75px;
+    max-height: 75px;
   }
 }
 
