@@ -44,10 +44,18 @@
   .container {
     min-height: 200px;
   }
+
+  .container_square_red {
+    min-height: 150px;
+  }
 }
 
 @media screen and (max-width: 500px) {
   .container {
     min-height: 150px;
+  }
+
+  .container_square_red {
+    min-height: 100px;
   }
 }

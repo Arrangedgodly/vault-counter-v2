@@ -9,8 +9,8 @@
   color: #74C69D;
   margin: 5px 0 5px 0;
   border-style: none;
-  width: 50px;
-  height: 50px;
+  width: 150px;
+  height: 100px;
   background-color: rgba(0,0,0,0);
 }
 
@@ -42,6 +42,6 @@
 
 @media screen and (max-width: 500px) {
   .count {
-    font-size: 4vw;
+    font-size: 3vw;
   }
 }
