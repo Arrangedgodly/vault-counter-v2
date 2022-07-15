@@ -1,8 +1,9 @@
 .confirmation {
-    width: 100vw;
-    position: fixed;
+    width: 100%;
+    position: absolute;
     display: none;
     justify-content: space-around;
+    align-items: center;
     bottom: 0;
 }
 
@@ -12,9 +13,22 @@
 
 .confirmation__text {
     font-size: 5vw;
-    margin: 0;
+    font-weight: 700;
+    margin: auto 0 auto 0;
     padding: 0;
-    animation: crazyText 1s ease-in-out infinite, jitterText 1s ease-in-out infinite alternate;
+    animation: crazyText 1s ease-in-out infinite, jitterText 2s ease-in-out infinite alternate, fadeIn 1.2s ease-in-out infinite alternate;
+}
+
+@media screen and (max-width: 720px) {
+    .confirmation {
+        width: 85%;
+        justify-content: space-between;
+    }
+
+    .confirmation__text {
+        font-size: 7vw;
+        margin-bottom: 2vw;
+    }
 }
 
 @keyframes crazyText {
@@ -49,12 +63,21 @@
 
 @keyframes jitterText {
     0% {
-        transform: scale(1);
+        transform: scale(1) skew(-30deg);
     }
     50% {
         transform: scale(1.35);
     }
     100% {
-        transform: scale(0.7);
+        transform: scale(0.7) skew(30deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
