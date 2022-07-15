@@ -356,6 +356,7 @@ billHundredSForm.addEventListener("submit", function(event){event.preventDefault
 const cumulative = () => {
   totalCount = (billHundredTCount + billFiftyTCount + billTwentyTCount + billTenTCount + billFiveTCount + billTCount + quarterTCount + dimeTCount + nickelTCount + pennyTCount);
   totalC.innerHTML = "$" + totalCount;
+  checkConfirmation();
 }
 
 pennySForm.addEventListener("change", cumulative);

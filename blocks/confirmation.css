@@ -1,0 +1,60 @@
+.confirmation {
+    width: 100vw;
+    position: fixed;
+    display: none;
+    justify-content: space-around;
+    bottom: 0;
+}
+
+.confirmation__yes {
+    display: flex;
+}
+
+.confirmation__text {
+    font-size: 5vw;
+    margin: 0;
+    padding: 0;
+    animation: crazyText 1s ease-in-out infinite, jitterText 1s ease-in-out infinite alternate;
+}
+
+@keyframes crazyText {
+    0% {
+        color: #FF3333;
+    }
+    12.5% {
+        color: #FF8133;
+    }
+    25% {
+        color: #FFF633;
+    }
+    37.5% {
+        color: #91FF33;
+    }
+    50% {
+        color: #33FFDA;
+    }
+    62.5% {
+        color: #33A1FF;
+    }
+    75% {
+        color: #9733FF;
+    }
+    87.5% {
+        color: #FF33C3;
+    }
+    100% {
+        color: #FF3360;
+    }
+}
+
+@keyframes jitterText {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.35);
+    }
+    100% {
+        transform: scale(0.7);
+    }
+}
