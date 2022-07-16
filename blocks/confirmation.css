@@ -16,7 +16,7 @@
     font-weight: 700;
     margin: auto 0 auto 0;
     padding: 0;
-    animation: crazyText 1s ease-in-out infinite, jitterText 2s ease-in-out infinite alternate, fadeIn 1.2s ease-in-out infinite alternate;
+    animation: crazyText 1s ease-in-out infinite, jitterText 2s ease-in-out infinite alternate, fadeIn .25s ease-in-out infinite alternate;
 }
 
 @media screen and (max-width: 720px) {
@@ -63,19 +63,19 @@
 
 @keyframes jitterText {
     0% {
-        transform: scale(1) skew(-30deg);
+        transform: scale(0.7) skew(-50deg) translate(-10vw);
     }
     50% {
-        transform: scale(1.35);
+        transform: scale(1.35) translate(0, 0);
     }
     100% {
-        transform: scale(0.7) skew(30deg);
+        transform: scale(0.7) skew(50deg) translate(10vw);
     }
 }
 
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        opacity: 0.6;
     }
     to {
         opacity: 1;
