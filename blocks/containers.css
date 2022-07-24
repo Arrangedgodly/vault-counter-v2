@@ -5,7 +5,7 @@
   width: 70vw;
   margin: 10px auto 10px auto;
   border-style: none;
-  background-color: #2D6A4F;
+  background-image: linear-gradient(#2D6A4F, #07884c);
   border-radius: 10px;
   box-shadow: 3px 3px 3px #000;
 }
@@ -24,15 +24,15 @@
   width: 100%;
   margin: 10px auto 0 auto;
   padding: 0;
-  background-color: #081C15;
+  background-image: linear-gradient(#081C15, #000000);
 }
 
 .containers_bills {
-  background-color: #014F86;
+  background-image: linear-gradient(#014F86, #206ba0);
 }
 
 .containers_red {
-  background-color: #590D22;
+  background-image: linear-gradient(#590D22, #962642);
 }
 
 @media screen and (max-width: 720px) {

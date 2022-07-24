@@ -8,7 +8,7 @@
 }
 
 .container_square {
-  background-color: #52B788;
+  background-image: linear-gradient(#5cf0ab, #01a358);
   border-radius: 10px;
   width: 85%;
   height: 50%;
@@ -20,11 +20,11 @@
 }
 
 .container_square_bills {
-  background-color: #A9D6E5;
+  background-image: linear-gradient(#A9D6E5, #3393b3);
 }
 
 .container_square_red {
-  background-color: #FFCCD5;
+  background-image: linear-gradient(#FFCCD5, #e63959);
   border-radius: 10px;
   grid-column-start: 1;
   grid-column-end: 4;
