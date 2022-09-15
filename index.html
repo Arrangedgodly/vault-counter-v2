@@ -7,7 +7,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="./blocks/confirmation.js" defer></script>
-    <script src="./blocks/penny.js" defer></script>
+    <script type="module" src="./blocks/constants.js" defer></script>
+    <script type="module" src="./blocks/penny.js" defer></script>
   </head>
   <main>
     <div class="page__wrapper">
@@ -27,178 +28,146 @@
         </div>
       </header>
       <body>
-        <div class="containers containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label">Penny Rolls</h2>
-            <form id="pennySForm">
-            <input type="number" class="count" id="pennyS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label">Penny Boxes</h2>
-            <form id="pennyBForm">
-              <input type="number" class="count" id="pennyB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square">
-              <h2 class="button__label button__label_alt">Total Pennies</h2>
-              <div class="count count_alt" id="pennyT">
+        <form id="safe">
+          <div class="containers containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label">Penny Rolls</h2>
+              <input type="number" class="count" id="pennyS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label">Penny Boxes</h2>
+                <input type="number" class="count" id="pennyB" required>
+            </div>
+            <div class="container">
+              <div class="container_square">
+                <h2 class="button__label button__label_alt">Total Pennies</h2>
+                <div class="count count_alt" id="pennyT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label">Nickel Rolls</h2>
-            <form id="nickelSForm">
-              <input type="number" class="count" id="nickelS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label">Nickel Boxes</h2>
-            <form id="nickelBForm">
-              <input type="number" class="count" id="nickelB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square">
-              <h2 class="button__label button__label_alt">Total Nickels</h2>
-              <div class="count count_alt" id="nickelT">
+          <div class="containers containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label">Nickel Rolls</h2>
+                <input type="number" class="count" id="nickelS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label">Nickel Boxes</h2>
+                <input type="number" class="count" id="nickelB" required>
+            </div>
+            <div class="container">
+              <div class="container_square">
+                <h2 class="button__label button__label_alt">Total Nickels</h2>
+                <div class="count count_alt" id="nickelT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label">Dime Rolls</h2>
-            <form id="dimeSForm">
-            <input type="number" class="count" id="dimeS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label">Dime Boxes</h2>
-            <form id="dimeBForm">
-              <input type="number" class="count" id="dimeB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square">
-              <h2 class="button__label button__label_alt">Total Dimes</h2>
-              <div class="count count_alt" id="dimeT">
+          <div class="containers containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label">Dime Rolls</h2>
+              <input type="number" class="count" id="dimeS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label">Dime Boxes</h2>
+                <input type="number" class="count" id="dimeB" required>
+            </div>
+            <div class="container">
+              <div class="container_square">
+                <h2 class="button__label button__label_alt">Total Dimes</h2>
+                <div class="count count_alt" id="dimeT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label">Quarter Rolls</h2>
-            <form id="quarterSForm">
-            <input type="number" class="count" id="quarterS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label">Quarter Boxes</h2>
-            <form id="quarterBForm">
-              <input type="number" class="count" id="quarterB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square">
-              <h2 class="button__label button__label_alt">Total Quarters</h2>
-              <div class="count count_alt" id="quarterT">
+          <div class="containers containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label">Quarter Rolls</h2>
+              <input type="number" class="count" id="quarterS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label">Quarter Boxes</h2>
+                <input type="number" class="count" id="quarterB" required>
+            </div>
+            <div class="container">
+              <div class="container_square">
+                <h2 class="button__label button__label_alt">Total Quarters</h2>
+                <div class="count count_alt" id="quarterT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_bills containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label button__label_bills">$1 Bills</h2>
-            <form id="billSForm">
-            <input type="number" class="count count_bills" id="billS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label button__label_bills">$1 Bundles</h2>
-            <form id="billBForm">
-              <input type="number" class="count count_bills" id="billB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square container_square_bills">
-              <h2 class="button__label button__label_bills button__label_alt">Total Ones</h2>
-              <div class="count count_alt" id="billT">
+          <div class="containers containers_bills containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label button__label_bills">$1 Bills</h2>
+              <input type="number" class="count count_bills" id="billS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label button__label_bills">$1 Bundles</h2>
+                <input type="number" class="count count_bills" id="billB" required>
+            </div>
+            <div class="container">
+              <div class="container_square container_square_bills">
+                <h2 class="button__label button__label_bills button__label_alt">Total Ones</h2>
+                <div class="count count_alt" id="billT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_bills containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label button__label_bills">$5 Bills</h2>
-            <form id="billFiveSForm">
-            <input type="number" class="count count_bills" id="billFiveS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label button__label_bills">$5 Bundles</h2>
-            <form id="billFiveBForm">
-              <input type="number" class="count count_bills" id="billFiveB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square container_square_bills">
-              <h2 class="button__label button__label_bills button__label_alt">Total Fives</h2>
-              <div class="count count_alt" id="billFiveT">
+          <div class="containers containers_bills containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label button__label_bills">$5 Bills</h2>
+              <input type="number" class="count count_bills" id="billFiveS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label button__label_bills">$5 Bundles</h2>
+                <input type="number" class="count count_bills" id="billFiveB" required>
+            </div>
+            <div class="container">
+              <div class="container_square container_square_bills">
+                <h2 class="button__label button__label_bills button__label_alt">Total Fives</h2>
+                <div class="count count_alt" id="billFiveT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_bills containers_ex-buttons">
-          <div class="container">
-            <h2 class="button__label button__label_bills">$10 Bills</h2>
-            <form id="billTenSForm">
-            <input type="number" class="count count_bills" id="billTenS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label button__label_bills">$10 Bundles</h2>
-            <form id="billTenBForm">
-              <input type="number" class="count count_bills" id="billTenB" required>
-            </form>
-          </div>
-          <div class="container">
-            <div class="container_square container_square_bills">
-              <h2 class="button__label button__label_bills button__label_alt">Total Tens</h2>
-              <div class="count count_alt" id="billTenT">
+          <div class="containers containers_bills containers_ex-buttons">
+            <div class="container">
+              <h2 class="button__label button__label_bills">$10 Bills</h2>
+              <input type="number" class="count count_bills" id="billTenS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label button__label_bills">$10 Bundles</h2>
+                <input type="number" class="count count_bills" id="billTenB" required>
+            </div>
+            <div class="container">
+              <div class="container_square container_square_bills">
+                <h2 class="button__label button__label_bills button__label_alt">Total Tens</h2>
+                <div class="count count_alt" id="billTenT">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="containers containers_red">
-          <div class="container">
-            <h2 class="button__label button__label_red">Twenty Bills</h2>
-            <form id="billTwentySForm">
-              <input type="number" class="count count_red" id="billTwentyS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label button__label_red">Fifty Bills</h2>
-            <form id="billFiftySForm">
-              <input type="number" class="count count_red" id="billFiftyS" required>
-            </form>
-          </div>
-          <div class="container">
-            <h2 class="button__label button__label_red">Hundred Bills</h2>
-            <form id="billHundredSForm">
-              <input type="number" class="count count_red" id="billHundredS" required>
-            </form>
-          </div>
-          <div class="container_square container_square_red">
-            <h2 class="button__label button__label_alt_red">Large Bill Total</h2>
-            <div class="count count_alt_red" id="redBagTotal">
+          <div class="containers containers_red">
+            <div class="container">
+              <h2 class="button__label button__label_red">Twenty Bills</h2>
+                <input type="number" class="count count_red" id="billTwentyS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label button__label_red">Fifty Bills</h2>
+                <input type="number" class="count count_red" id="billFiftyS" required>
+            </div>
+            <div class="container">
+              <h2 class="button__label button__label_red">Hundred Bills</h2>
+                <input type="number" class="count count_red" id="billHundredS" required>
+            </div>
+            <div class="container_square container_square_red">
+              <h2 class="button__label button__label_alt_red">Large Bill Total</h2>
+              <div class="count count_alt_red" id="redBagTotal">
+              </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="containers_alt">
               <h2 class="button__label">Total</h2>
               <div class="count" id="totalCount">
