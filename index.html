@@ -1,185 +1,66 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Vault Counter</title>
-    <link rel="stylesheet" href="./vendor/normalize.css">
-    <link rel="stylesheet" href="./pages/index.css">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="./blocks/confirmation.js" defer></script>
-    <script type="module" src="./blocks/constants.js" defer></script>
-    <script type="module" src="./blocks/penny.js" defer></script>
-  </head>
-  <main>
-    <div class="page__wrapper">
-      <header class="header">
-        <h1 class="page__header">Vault Counter</h1>
-        <div class="header__icons">
-          <img
-            src="./images/vault-alt.svg"
-            alt="vault icon"
-            class="header__icon"
-          >
-          <img
-            src="./images/calculator-alt.svg"
-            alt="calculator icon"
-            class="header__icon"
-          >
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Count rolled coins and bills, compare your cash total with a target, and export a denomination breakdown. A browser-based vault counting tool.">
+  <meta name="theme-color" content="#123e30">
+  <title>Vault Counter | Cash counting workspace</title>
+  <link rel="icon" href="./images/vault-alt.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./pages/index.css">
+  <script type="module" src="./blocks/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#safe">Skip to cash counts</a>
+  <header class="header">
+    <div class="header__inner">
+      <div class="brand"><img src="./images/vault-alt.svg" width="38" height="38" alt=""><h1>Vault Counter</h1></div>
+      <span class="header__note">Every denomination accounted for.</span>
+    </div>
+  </header>
+  <main class="workspace">
+    <div class="workspace__heading">
+      <div><h2>Count your cash.</h2><p>Enter quantities below. Your totals update as you go.</p></div>
+      <button type="button" id="sample" class="button button--quiet">Try a sample count</button>
+    </div>
+    <noscript><p class="notice">Enable JavaScript to calculate and save your cash count.</p></noscript>
+    <div class="workspace__body">
+      <form id="safe" aria-label="Cash quantities" novalidate>
+        <div id="denominations"></div>
+        <p class="form-note">Count sealed rolls and boxes separately. Bundles use the values shown beside each field.</p>
+        <details class="settings">
+          <summary>Store settings <span>Customize bundle sizes</span></summary>
+          <div class="settings__body">
+            <h3>How many bills go in a bundle?</h3>
+            <p>Set your store's packaging rules. Applying changes recalculates the current count.</p>
+            <div id="bundle-settings" class="settings__fields"></div>
+            <button type="button" id="apply-settings" class="button button--quiet">Apply bundle sizes</button>
+            <p id="settings-status" class="action-status" role="status"></p>
+          </div>
+        </details>
+      </form>
+      <aside class="summary" aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Count summary</h2>
+        <div class="summary__total"><span>Total cash</span><output id="totalCount" aria-live="polite" aria-atomic="true">$0.00</output></div>
+        <dl class="breakdown">
+          <div><dt><span class="dot dot--coins"></span>Coins</dt><dd id="coinsTotal">$0.00</dd></div>
+          <div><dt><span class="dot dot--small"></span>Small bills</dt><dd id="smallTotal">$0.00</dd></div>
+          <div><dt><span class="dot dot--large"></span>Large bills</dt><dd id="largeTotal">$0.00</dd></div>
+        </dl>
+        <div class="target">
+          <label for="target">Expected cash <span>optional</span></label>
+          <div class="target__input"><span aria-hidden="true">$</span><input id="target" type="number" min="0" step="0.01" max="10000000000" inputmode="decimal" placeholder="e.g. 6,500" aria-describedby="target-error"></div>
+          <p id="target-error" class="field-error" hidden></p>
+          <p id="balance" class="balance" aria-live="polite">Add a target to check your balance.</p>
         </div>
-      </header>
-      <body>
-        <form id="safe">
-          <div class="containers containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label">Penny Rolls</h2>
-              <input type="number" class="count" id="pennyS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label">Penny Boxes</h2>
-                <input type="number" class="count" id="pennyB" required>
-            </div>
-            <div class="container">
-              <div class="container_square">
-                <h2 class="button__label button__label_alt">Total Pennies</h2>
-                <div class="count count_alt" id="pennyT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label">Nickel Rolls</h2>
-                <input type="number" class="count" id="nickelS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label">Nickel Boxes</h2>
-                <input type="number" class="count" id="nickelB" required>
-            </div>
-            <div class="container">
-              <div class="container_square">
-                <h2 class="button__label button__label_alt">Total Nickels</h2>
-                <div class="count count_alt" id="nickelT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label">Dime Rolls</h2>
-              <input type="number" class="count" id="dimeS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label">Dime Boxes</h2>
-                <input type="number" class="count" id="dimeB" required>
-            </div>
-            <div class="container">
-              <div class="container_square">
-                <h2 class="button__label button__label_alt">Total Dimes</h2>
-                <div class="count count_alt" id="dimeT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label">Quarter Rolls</h2>
-              <input type="number" class="count" id="quarterS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label">Quarter Boxes</h2>
-                <input type="number" class="count" id="quarterB" required>
-            </div>
-            <div class="container">
-              <div class="container_square">
-                <h2 class="button__label button__label_alt">Total Quarters</h2>
-                <div class="count count_alt" id="quarterT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_bills containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label button__label_bills">$1 Bills</h2>
-              <input type="number" class="count count_bills" id="billS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label button__label_bills">$1 Bundles</h2>
-                <input type="number" class="count count_bills" id="billB" required>
-            </div>
-            <div class="container">
-              <div class="container_square container_square_bills">
-                <h2 class="button__label button__label_bills button__label_alt">Total Ones</h2>
-                <div class="count count_alt" id="billT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_bills containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label button__label_bills">$5 Bills</h2>
-              <input type="number" class="count count_bills" id="billFiveS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label button__label_bills">$5 Bundles</h2>
-                <input type="number" class="count count_bills" id="billFiveB" required>
-            </div>
-            <div class="container">
-              <div class="container_square container_square_bills">
-                <h2 class="button__label button__label_bills button__label_alt">Total Fives</h2>
-                <div class="count count_alt" id="billFiveT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_bills containers_ex-buttons">
-            <div class="container">
-              <h2 class="button__label button__label_bills">$10 Bills</h2>
-              <input type="number" class="count count_bills" id="billTenS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label button__label_bills">$10 Bundles</h2>
-                <input type="number" class="count count_bills" id="billTenB" required>
-            </div>
-            <div class="container">
-              <div class="container_square container_square_bills">
-                <h2 class="button__label button__label_bills button__label_alt">Total Tens</h2>
-                <div class="count count_alt" id="billTenT">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="containers containers_red">
-            <div class="container">
-              <h2 class="button__label button__label_red">Twenty Bills</h2>
-                <input type="number" class="count count_red" id="billTwentyS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label button__label_red">Fifty Bills</h2>
-                <input type="number" class="count count_red" id="billFiftyS" required>
-            </div>
-            <div class="container">
-              <h2 class="button__label button__label_red">Hundred Bills</h2>
-                <input type="number" class="count count_red" id="billHundredS" required>
-            </div>
-            <div class="container_square container_square_red">
-              <h2 class="button__label button__label_alt_red">Large Bill Total</h2>
-              <div class="count count_alt_red" id="redBagTotal">
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="containers_alt">
-              <h2 class="button__label">Total</h2>
-              <div class="count" id="totalCount">
-              </div>
-            <div class="confirmation">
-              <p class="confirmation__text">PERIOD</p>
-              <p class="confirmation__text">POOH!</p>
-            </div>
-        </div>
-      </body>
-      <footer>
-      </footer>
+        <button type="button" id="export" class="button button--primary">Export count as CSV</button>
+        <div class="summary__actions"><button type="button" id="clear" class="button button--quiet">Clear count</button><button type="button" id="undo" class="button button--quiet" hidden>Undo clear</button></div>
+        <p id="storage-status" class="storage-status">Counts save in this browser.</p>
+        <p id="action-status" class="action-status" role="status"></p>
+      </aside>
     </div>
   </main>
+  <div class="mobile-total"><span>Total cash <output id="mobile-total">$0.00</output></span><a href="#summary-heading">View summary</a></div>
+  <footer class="footer"><span>Built for the back office.</span><span>USD · Your count stays on this device.</span></footer>
+</body>
 </html>
