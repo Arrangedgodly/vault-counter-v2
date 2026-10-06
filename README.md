@@ -1,29 +1,47 @@
 # Vault Counter
 
-A cash counting tool originally built to help coworkers count a store's back office vault and transfer the denomination breakdown to a company spreadsheet. The refreshed version keeps that workflow and adds configurable bundle sizes for stores that package bills differently.
+**Count the packages and bills. Keep the denomination breakdown and total together.**
 
-## Run locally
+Vault Counter began as a practical tool for coworkers counting a store’s back-office cash and transferring the breakdown into a company spreadsheet. The current app keeps that direct workflow: enter quantities, check totals, compare an expected amount, and export the record.
 
-Use Node.js 22 or newer. The project has no runtime dependencies and requires no install step for local counting. Install development dependencies with `npm ci` when using Wrangler for deployment.
+[Open Vault Counter](https://counter.graydonwasil.com/) · [Counting workflow](#count-a-vault) · [Bundle settings](#match-your-stores-bundles) · [Run locally](#run-locally)
 
-```sh
-npm start
-```
+![The live Vault Counter interface with an empty count and no private cash information](docs/images/counter-desktop.jpg)
 
-Open http://localhost:5187. Choose another port with `PORT=5190 npm start`. The development server binds to all interfaces so the app can be previewed from a paired device. Run it on a trusted network.
+*Actual public desktop capture with an empty count.*
 
-Alternatively, serve the project with any static HTTP server. JavaScript modules require HTTP rather than opening `index.html` directly.
+## Count a vault
 
-## Use the counter
-
-1. Enter the number of sealed coin rolls, boxes, loose bills, and bill bundles. Empty quantities count as zero.
-2. Expand **Store settings** and enter the number of bills per bundle for $1, $5, and $10 denominations. Click **Apply bundle sizes** to recalculate the current count.
+1. Enter quantities of **sealed coin rolls and boxes**, **loose bills**, and **bill bundles**. Empty fields count as zero.
+2. Read the per-denomination totals, category subtotals, and grand total as you work.
 3. Optionally enter expected cash to see whether the count balances, is short, or is over.
-4. Export a CSV with each quantity, package value, subtotal, grand total, and optional target comparison.
+4. Export a CSV when you need a portable denomination-level record.
 
-Counts and applied settings save automatically in the current browser. **Clear count** resets quantities and the target while preserving store settings. **Undo clear** restores the previous count until another edit. **Try a sample count** loads labeled demonstration quantities into an empty count and uses your current bundle settings.
+| Group | What you enter |
+| --- | --- |
+| Green coin section | Roll and box counts for pennies, nickels, dimes, and quarters |
+| Blue small-bill section | Loose bills and bundles for $1, $5, and $10 |
+| Red large-bill section | Loose $20, $50, and $100 bills |
 
-The original defaults are 100 bills per $1 bundle, 100 bills per $5 bundle, and 10 bills per $10 bundle. These reflect the original workplace convention, not a universal banking rule.
+The model covers **10 USD denominations through 17 quantity fields**. Enter the number of packages or bills, not the dollar value you want them to represent.
+
+| Action | Behavior |
+| --- | --- |
+| **Store settings** | Configure how many bills are in each supported bundle |
+| **Apply bundle sizes** | Apply those settings and recalculate the current count |
+| Expected cash | Add an optional target for the difference calculation |
+| CSV export | Export quantities, package values, subtotals, grand total, and optional target comparison |
+| **Clear count** | Reset quantities and target while keeping store settings |
+| **Undo clear** | Restore the previous count until another edit |
+| **Try a sample count** | Load labeled demonstration quantities into an empty count using the current bundle settings |
+
+## Match your store’s bundles
+
+The original defaults are **100 bills per $1 bundle**, **100 per $5 bundle**, and **10 per $10 bundle**. These are workplace conventions, not universal banking rules. Expand Store settings, change the bill counts, and apply them before interpreting the totals.
+
+For example, a $5 bundle containing 100 bills contributes $500; the same denomination configured as 50 bills contributes $250 per bundle. The application uses the applied setting consistently in calculation and export.
+
+Coin packaging has fixed values in the current model:
 
 | Coin | Roll value | Box value |
 | --- | ---: | ---: |
@@ -32,50 +50,89 @@ The original defaults are 100 bills per $1 bundle, 100 bills per $5 bundle, and 
 | Dimes | $5.00 | $250.00 |
 | Quarters | $10.00 | $500.00 |
 
-## Implementation
+## Validation and saved state
 
-- Semantic HTML and responsive CSS retain the green coin, blue small bill, and red large bill groups.
-- `blocks/money.js` defines denomination rules and pure calculations using integer cents. A single data model drives inputs, totals, settings, and CSV output.
-- `blocks/app.js` manages input validation, rendering, browser persistence, and user actions.
-- `scripts/serve.js` is a small dependency free development server that blocks hidden files and directory traversal.
-- `tests/money.test.js` checks packaging values, mixed totals, invalid quantities, target precision, and custom bundle sizes with Node's built-in test runner.
+Quantity inputs accept whole numbers from **0 to 1,000,000**. Bundle sizes accept whole numbers from **1 to 1,000,000**. Invalid quantities show inline errors and block export rather than silently producing an incomplete record.
+
+Calculations use integer cents. A shared denomination model supplies the input definitions, package values, totals, settings, and CSV output, reducing the chance of those views drifting apart.
+
+Valid counts, target, applied bundle settings, and the sample marker save automatically in localStorage under `vault-counter.v2`. There is no account, shared database, synchronization, authenticated administrator role, or audit-history system. **Store settings is local configuration.**
+
+The inspected application has no count-transmission path. Browser storage belongs to the current browser and origin; clearing site data removes saved state. Export a CSV when you need a portable record. Calculation and export continue if local storage is unavailable.
+
+## Interface
+
+The page retains distinct coin, small-bill, and large-bill groups, labeled inputs, keyboard focus indicators, and live total announcements. A mobile total bar keeps the running total visible while counting through the form.
+
+The captured view above was inspected on desktop. The settings disclosure and mobile layout were checked in source rather than fully exercised in this documentation review.
+
+## Stack and implementation
+
+| Component | Technology or file | Responsibility |
+| --- | --- | --- |
+| Interface | Semantic HTML and responsive CSS | Counting form, category layout, settings, and totals |
+| Denomination model | `blocks/money.js` | Pure integer-cent calculations, package rules, validation, and export data |
+| Application controller | `blocks/app.js` | Input events, rendering, persistence, and user actions |
+| Local server | `scripts/serve.js` | Dependency-free HTTP serving with hidden-file and path-traversal checks |
+| Tests | Node’s built-in test runner | Packaging values, mixed totals, invalid input, target precision, and custom bundles |
+| Configured hosting | Cloudflare Workers Static Assets | Serve the static `dist/` output |
+
+The current counter uses plain HTML, CSS, and JavaScript modules, with no runtime dependencies. Older React/Firebase/API versions are separate repositories and are not required by this static app.
+
+## Run locally
+
+Use **Node.js 22 or newer**. Basic local counting needs no dependency installation:
+
+```sh
+git clone https://github.com/Arrangedgodly/vault-counter-v2.git
+cd vault-counter-v2
+npm start
+```
+
+Open `http://localhost:5187`. You can select another port with `PORT=5190 npm start` in a compatible shell. The development server binds to all interfaces so another paired device can preview it; run it on a trusted network.
+
+Alternatively, use a static HTTP server. JavaScript modules require HTTP rather than opening `index.html` directly.
 
 ```sh
 npm test
 ```
 
-Counts must be whole numbers between zero and 1,000,000. Bundle sizes must be whole numbers between one and 1,000,000. Invalid quantities show inline errors and block export rather than producing an incomplete total. The UI uses labeled inputs, keyboard focus indicators, and live total announcements. A mobile total bar keeps the running total visible while counting.
+The repository supplies six calculation/validation tests. They were inspected, not freshly executed in this documentation pass.
 
-## Hosting
+## Build and deploy
 
-The app is static and includes `wrangler.jsonc` for Cloudflare Workers Static Assets. No backend Worker code is needed. The build copies only `index.html`, `pages/`, `blocks/`, and `images/` into `dist/`. Asset paths are relative, including for project subdirectory hosting.
-
-For a Cloudflare hosting bot or Workers Builds, use:
-
-- Install command: `npm ci`
-- Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
-- Worker name: `vault-counter-v2`
-- Asset directory: `dist`
-
-The bot must provide its Cloudflare credentials. No credentials are stored in this repository. Wrangler also runs the configured build command for direct CLI deployments. After installing development dependencies, `npm run deploy` is an equivalent deploy command.
-
-Validate the deployment package without publishing:
+Install development dependencies when using the deployment tooling:
 
 ```sh
 npm ci
 npm test
+npm run build
+```
+
+The build copies only `index.html`, `pages/`, `blocks/`, and `images/` into `dist/`. Asset paths are relative, including for project-subdirectory hosting. The historical root `CNAME` is not part of that build output.
+
+For the configured Cloudflare Workers Static Assets workflow:
+
+| Setting | Value |
+| --- | --- |
+| Install command | `npm ci` |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Worker name | `vault-counter-v2` |
+| Asset directory | `dist` |
+
+The deployment environment must supply its own Cloudflare credentials. None are stored in the repository. Wrangler also runs the configured build for direct CLI deployment; after installing dependencies, `npm run deploy` provides the equivalent command.
+
+To validate the deployment package without publishing:
+
+```sh
 npx wrangler deploy --dry-run
 ```
 
-The generated `dist/` directory can also be published to another static host. `dist/` and Wrangler's local state are ignored by Git.
+The generated `dist/` can also be served by another static host. The verified public demo is [counter.graydonwasil.com](https://counter.graydonwasil.com/). The repository’s older `CNAME` names `vault.graydonwasil.com`; review domain ownership and hosting configuration before reusing it. The exact deployed commit/provider was not independently established from deployment logs.
 
-The repository retains its historical `CNAME` file. Confirm that the custom domain is still yours and configured correctly before enabling it on a new deployment. The old live URL has not been verified as part of this refresh.
+## Project context
 
-## Scope
+The project grew from a real counting workflow and provides a concrete example of shared domain modeling, input validation, accessible form design, browser-local state, and automated calculation tests. Historical workplace impact belongs to the project’s backstory; the app does not measure operational error reductions or collect analytics to substantiate them.
 
-Store settings are local configuration controls. They do not provide authenticated administrator roles, a shared store database, multi-device synchronization, or an audit history. Browser storage belongs to this browser and origin; clearing site data removes it. Export a CSV when you need a portable record. If storage is blocked, calculation and export continue to work.
-
-## Portfolio context
-
-This project began as a practical tool for coworkers. The refresh replaces repetitive denomination handlers with a shared model, fixes delayed updates and fractional quantity handling, and makes packaging rules configurable. It provides a concrete example of improving an existing product through domain modeling, input validation, accessible UI, and automated calculation tests.
+No project license file is included in the inspected repository.
